@@ -5,13 +5,17 @@ import {
 import {
   MoonIcon as DarkMoonIcon
 } from '@heroicons/react/24/solid';
-
+import { Button } from '@heroui/button';
 
 export default function LightDarkButton() {
   return (
-    <button type='button' className='size-8 rounded-full border border-emerald-500 shadow-emerald-200 hover:shadow-emerald-300 justify-items-center'>
-      <DarkMoonIcon className="size-6 text-emerald-500" />
-    </button>
+    <Button
+      className='border-emerald-500'
+      variant="bordered"
+      size="sm"
+      radius="full"
+      startContent={<DarkMoonIcon className="size-6 text-emerald-500" />}
+      isIconOnly />
   );
 }
 
