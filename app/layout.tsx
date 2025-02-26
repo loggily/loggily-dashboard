@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/app/ui/globals.css";
+import LightDarkButton from "./ui/light-dark-button";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,7 +35,7 @@ export default function RootLayout({
                 <span className="text-xl font-bold text-emerald-500 shrink-0">Loggily Dashboard</span>
               </div>
               <div className="flex items-center gap-6 max-md:hidden">
-                Dark/Light?
+                <LightDarkButton></LightDarkButton>
               </div>
             </div>
           </div>
