@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/app/ui/globals.css";
 import LightDarkButton from "./ui/light-dark-button";
+import { Providers } from "./providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,19 +29,21 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="fixed inset-x-0 top-0 z-10 border-b border-emerald-500/25 dark:border-white/10">
-          <div className="bg-white dark:bg-gray-950">
-            <div className="flex h-14 items-center justify-between gap-8 px-4 sm:px-6">
-              <div className="flex gap-4">
-                <span className="text-xl font-bold text-emerald-500 shrink-0">Loggily Dashboard</span>
-              </div>
-              <div className="flex items-center gap-6 max-md:hidden">
-                <LightDarkButton></LightDarkButton>
+        <Providers>
+          <div className="fixed inset-x-0 top-0 z-10 border-b border-emerald-500/25 dark:border-white/10">
+            <div className="bg-white dark:bg-gray-950">
+              <div className="flex h-14 items-center justify-between gap-8 px-4 sm:px-6">
+                <div className="flex gap-4">
+                  <span className="text-xl font-bold text-emerald-500 shrink-0">Loggily Dashboard</span>
+                </div>
+                <div className="flex items-center gap-6 max-md:hidden">
+                  <LightDarkButton></LightDarkButton>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        {children}
+          {children}
+        </Providers>
       </body>
     </html>
   );
