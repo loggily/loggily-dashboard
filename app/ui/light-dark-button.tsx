@@ -1,40 +1,23 @@
-'use client'
-
 import {
   SunIcon as LightSunIcon
 } from '@heroicons/react/24/outline';
 import {
   MoonIcon as DarkMoonIcon
 } from '@heroicons/react/24/solid';
-import { Button } from '@heroui/button';
-import { JSX, useState } from 'react';
+import { Button, PressEvent } from '@heroui/button';
+import { ThemeMode } from '../lib/definitions';
+import { ThemeAttributes } from '../lib/types';
 
 const darkModeIcon = <DarkMoonIcon className="size-6 text-emerald-500" />
 const lightModeIcon = <LightSunIcon className="size-6 text-emerald-500" />
 
-interface ThemeAttributes {
-  icon: JSX.Element
-}
-type ThemeMode = "Dark" | "Light"
-
 const themeModeAttributesMap: Map<ThemeMode, ThemeAttributes> = new Map()
-  .set("Dark", { "icon": darkModeIcon })
-  .set("Light", { "icon": lightModeIcon })
+  .set("dark", { "icon": darkModeIcon })
+  .set("light", { "icon": lightModeIcon })
 
+export default function LightDarkButton({ themeMode, onToggle }: Readonly<{ themeMode: ThemeMode, onToggle: ((e: PressEvent) => void) }>) {
 
-export default function LightDarkButton() {
-
-  const [themeMode, setThemeMode] = useState<ThemeMode>("Light")
   const themeAttributes = themeModeAttributesMap.get(themeMode)!
-
-  function toggleTheme() {
-
-    if (themeMode === "Dark") {
-      setThemeMode("Light")
-    } else {
-      setThemeMode("Dark")
-    }
-  }
 
   return (
     <Button
@@ -44,7 +27,8 @@ export default function LightDarkButton() {
       radius="full"
       startContent={themeAttributes.icon}
       isIconOnly
-      onPress={toggleTheme} />
+      onPress={onToggle}
+    />
   );
 }
 
