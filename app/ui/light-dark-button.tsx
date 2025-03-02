@@ -17,7 +17,8 @@ const themeModeAttributesMap: Map<ThemeMode, ThemeAttributes> = new Map()
 
 export default function LightDarkButton({ themeMode, onToggle }: Readonly<{ themeMode: ThemeMode, onToggle: ((e: PressEvent) => void) }>) {
 
-  const themeAttributes = themeModeAttributesMap.get(themeMode)!
+  const selectableThemeMode = themeMode === "dark" ? "light" : "dark"
+  const themeAttributes = themeModeAttributesMap.get(selectableThemeMode)!
 
   return (
     <Button
