@@ -2,10 +2,10 @@
 
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/app/ui/globals.css";
-import LightDarkButton from "./ui/light-dark-button";
 import { Providers } from "./providers";
 import { ThemeMode } from "./lib/definitions";
 import { useState } from "react";
+import DashboardHeader from "./ui/dashboard-header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,24 +34,19 @@ export default function RootLayout({
   }
 
   return (
-    <html lang="en" className={themeMode}>
+    <html lang="en" className={`${themeMode} h-full`}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased h-full bg-white dark:bg-emerald-950`}
       >
         <Providers>
-          <div className="fixed inset-x-0 top-0 z-10 border-b border-emerald-500/25 dark:border-white/10">
-            <div className="bg-white dark:bg-emerald-950">
-              <div className="flex h-14 items-center justify-between gap-8 px-4 sm:px-6">
-                <div className="flex gap-4">
-                  <span className="text-xl font-bold text-emerald-500 shrink-0">Loggily Dashboard</span>
-                </div>
-                <div className="flex items-center gap-6 max-md:hidden">
-                  <LightDarkButton themeMode={themeMode} onToggle={toggleThemeMode}></LightDarkButton>
-                </div>
-              </div>
+          <div className="flex flex-col h-full">
+            <div>
+              <DashboardHeader themeMode={themeMode} onToggle={toggleThemeMode}></DashboardHeader>
+            </div>
+            <div className="grow">
+              {children}
             </div>
           </div>
-          {children}
         </Providers>
       </body>
     </html>
