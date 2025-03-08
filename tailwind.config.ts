@@ -17,5 +17,20 @@ export default {
       },
     },
   },
-  plugins: [heroui()],
+  plugins: [heroui({
+    // themes: {
+    //   dark: {
+    //     colors: {
+    //       default: {
+    //         100: "#d1fae5",
+    //         DEFAULT: "#BEF264",
+    //         foreground: "#10b981"
+    //       },
+    //       focus: "#BEF264",
+    //       overlay: "#10b981",
+    //       background: "#064e3b",
+    //     }
+    //   }
+    // }
+  })],
 } satisfies Config;
