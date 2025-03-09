@@ -13,6 +13,9 @@ export default function LogFilter() {
   const [selectedApplication, setSelectedApplication] = useState<{ label: string, key: Key } | undefined>(undefined);
   const [selectedHost, setSelectedHost] = useState<{ label: string, key: Key } | undefined>(undefined);
 
+  const [selectedTraceId, setSelectedTraceId] = useState<string | undefined>(undefined);
+  const [selectedSpanId, setSelectedSpanId] = useState<string | undefined>(undefined);
+
   const onEnvironmentChange = (selectedEnvironment: { label: string, key: Key } | undefined) => {
     setSelectedEnvironment(selectedEnvironment);
   }
@@ -23,6 +26,14 @@ export default function LogFilter() {
 
   const onHostChange = (selectedHost: { label: string, key: Key } | undefined) => {
     setSelectedHost(selectedHost);
+  }
+
+  const onTraceIdChange = (traceId: string) => {
+    setSelectedTraceId(traceId);
+  }
+
+  const onSpanIdChange = (spanId: string) => {
+    setSelectedSpanId(spanId);
   }
 
   return (
@@ -39,11 +50,11 @@ export default function LogFilter() {
         </div>
       </div>
       <div className="flex flex-row m-2 gap-2 justify-center">
-        <div>
-          <LogTraceIdFilter></LogTraceIdFilter>
+        <div className="w-1/3">
+          <LogTraceIdFilter onTraceIdChange={onTraceIdChange}></LogTraceIdFilter>
         </div>
-        <div>
-          <LogSpanIdFilter></LogSpanIdFilter>
+        <div className="w-1/3">
+          <LogSpanIdFilter onSpanIdChange={onSpanIdChange}></LogSpanIdFilter>
         </div>
       </div>
     </div>
