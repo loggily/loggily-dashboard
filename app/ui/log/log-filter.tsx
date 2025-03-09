@@ -4,6 +4,8 @@ import LogApplicationFilter from "./log-application-filter";
 import LogEnvironmentFilter from "./log-environment-filter";
 import { Key, useState } from "react";
 import LogHostFilter from "./log-host-filter";
+import LogTraceIdFilter from "./log-trace-id-filter";
+import LogSpanIdFilter from "./log-span-id-filter";
 
 export default function LogFilter() {
 
@@ -24,17 +26,26 @@ export default function LogFilter() {
   }
 
   return (
-    <div className="flex flex-row m-2 gap-2">
-      <div>
-        <LogEnvironmentFilter onEnvironmentChange={onEnvironmentChange}></LogEnvironmentFilter>
+    <div className="flex flex-col">
+      <div className="flex flex-row m-2 gap-2 justify-center">
+        <div>
+          <LogEnvironmentFilter onEnvironmentChange={onEnvironmentChange}></LogEnvironmentFilter>
+        </div>
+        <div>
+          <LogApplicationFilter environmentName={selectedEnvironment} onApplicationChange={onApplicationChange}></LogApplicationFilter>
+        </div>
+        <div>
+          <LogHostFilter environmentName={selectedEnvironment} applicationName={selectedApplication} onHostChange={onHostChange}></LogHostFilter>
+        </div>
       </div>
-      <div>
-        <LogApplicationFilter environmentName={selectedEnvironment} onApplicationChange={onApplicationChange}></LogApplicationFilter>
+      <div className="flex flex-row m-2 gap-2 justify-center">
+        <div>
+          <LogTraceIdFilter></LogTraceIdFilter>
+        </div>
+        <div>
+          <LogSpanIdFilter></LogSpanIdFilter>
+        </div>
       </div>
-      <div>
-        <LogHostFilter environmentName={selectedEnvironment} applicationName={selectedApplication} onHostChange={onHostChange}></LogHostFilter>
-      </div>
-      <p>{`${selectedEnvironment?.label} ${selectedApplication?.label} ${selectedHost?.label}`}</p>
     </div>
   );
 }
