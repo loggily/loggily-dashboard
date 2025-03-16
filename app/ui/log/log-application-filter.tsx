@@ -1,42 +1,38 @@
 "use client";
 
+import { findApplicationsByEnvironment } from '@/app/lib/log-api';
+import { SelectionItem } from '@/app/lib/types';
 import { Autocomplete, AutocompleteItem } from '@heroui/autocomplete';
-import React, { Key } from 'react';
-
-interface Application {
-  label: string;
-  key: string;
-}
-
-const applications = new Map<string, Application[]>();
-applications.set('production', [{ label: "app1", key: "app1" }]);
-applications.set('staging', [{ label: "app2", key: "app2" }]);
-
-// interface LogApplicationFilterProps {
-//   environmentName: { label: string, key: Key } | undefined;
-// }
+import React, { Key, useState } from 'react';
 
 export default function LogApplicationFilter({ environmentName, onApplicationChange }: Readonly<{ environmentName: { label: string, key: Key } | undefined, onApplicationChange: (application: { label: string, key: Key } | undefined) => void }>) {
 
-  let allApplications: Application[] = [];
+  const [applications, setApplications] = useState<SelectionItem[]>([]);
+
   if (environmentName) {
-    allApplications = applications.get(environmentName.key as string) || [];
+    findApplicationsByEnvironment(environmentName.label)
+      .then((applications) => setApplications(applications))
+  }
+
+  if (environmentName === undefined && applications.length > 0) {
+    // Clear applications when environment is not selected
+    setApplications([])
   }
 
   const onSelectionChange = (selected: Key | null) => {
-    const selectedApplication = allApplications.find((app) => app.key === selected)
-    onApplicationChange(selectedApplication)
+    const selectedApplication = applications.find((app) => app.key === selected)
+    onApplicationChange(selectedApplication);
   }
 
   return (
     <div>
       <Autocomplete
         label="Select an application"
-        defaultItems={allApplications}
+        defaultItems={applications}
         size='sm'
         variant='bordered'
-        isDisabled={allApplications.length === 0}
-        description={allApplications.length === 0 ? 'Choose an environment' : undefined}
+        isDisabled={applications.length === 0}
+        description={applications.length === 0 ? 'Choose an environment' : undefined}
         onSelectionChange={onSelectionChange}
       >
         {(app) => <AutocompleteItem key={app.key}>{app.label}</AutocompleteItem>}
