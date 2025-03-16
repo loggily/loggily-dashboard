@@ -6,19 +6,18 @@ import { Key, useState } from "react";
 import LogHostFilter from "./log-host-filter";
 import LogTraceIdFilter from "./log-trace-id-filter";
 import LogSpanIdFilter from "./log-span-id-filter";
+import { SelectionItem } from "@/app/lib/types";
 
 export default function LogFilter() {
 
-  const [selectedEnvironment, setSelectedEnvironment] = useState<{ label: string, key: Key } | undefined>(undefined);
+  const [selectedEnvironment, setSelectedEnvironment] = useState<SelectionItem | undefined>(undefined);
   const [selectedApplication, setSelectedApplication] = useState<{ label: string, key: Key } | undefined>(undefined);
   const [selectedHost, setSelectedHost] = useState<{ label: string, key: Key } | undefined>(undefined);
 
   const [selectedTraceId, setSelectedTraceId] = useState<string | undefined>(undefined);
   const [selectedSpanId, setSelectedSpanId] = useState<string | undefined>(undefined);
 
-  const onEnvironmentChange = (selectedEnvironment: { label: string, key: Key } | undefined) => {
-    setSelectedEnvironment(selectedEnvironment);
-  }
+  const onEnvironmentChange = (selectedEnvironment: SelectionItem | undefined) => setSelectedEnvironment(selectedEnvironment);
 
   const onApplicationChange = (selectedApplication: { label: string, key: Key } | undefined) => {
     setSelectedApplication(selectedApplication);

@@ -5,7 +5,7 @@ import { SelectionItem } from "@/app/lib/types";
 import { Autocomplete, AutocompleteItem } from "@heroui/autocomplete";
 import { Key, useState } from "react";
 
-export default function LogEnvironmentFilter({ onEnvironmentChange }: Readonly<{ onEnvironmentChange: (environment: { label: string, key: Key } | undefined) => void }>) {
+export default function LogEnvironmentFilter({ onEnvironmentChange }: Readonly<{ onEnvironmentChange: (environment: SelectionItem | undefined) => void }>) {
   const [environments, setEnvironments] = useState<SelectionItem[]>([]);
 
   const onInputChange = (value: string) => {
