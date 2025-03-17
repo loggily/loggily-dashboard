@@ -8,11 +8,18 @@ export default function LogHostFilter({ environmentName, applicationName, onHost
   const [hosts, setHosts] = useState<SelectionItem[]>([]);
 
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
     if (environmentName && applicationName) {
-      findHostsByEnvironmentAndApplication(environmentName.label, applicationName.label)
+      findHostsByEnvironmentAndApplication(environmentName.label, applicationName.label, signal)
         .then((hosts) => setHosts(hosts));
     } else {
       setHosts([]);
+    }
+
+    return () => {
+      controller.abort();
     }
   }, [environmentName, applicationName]);
 

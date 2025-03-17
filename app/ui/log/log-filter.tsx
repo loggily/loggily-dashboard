@@ -17,7 +17,9 @@ export default function LogFilter() {
   const [selectedTraceId, setSelectedTraceId] = useState<string | undefined>(undefined);
   const [selectedSpanId, setSelectedSpanId] = useState<string | undefined>(undefined);
 
-  const onEnvironmentChange = (selectedEnvironment: SelectionItem | undefined) => setSelectedEnvironment(selectedEnvironment);
+  const onEnvironmentChange = (selectedEnvironment: SelectionItem | undefined) => {
+    setSelectedEnvironment(selectedEnvironment);
+  }
 
   const onApplicationChange = (selectedApplication: { label: string, key: Key } | undefined) => {
     setSelectedApplication(selectedApplication);

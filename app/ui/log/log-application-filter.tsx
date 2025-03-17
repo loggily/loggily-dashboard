@@ -10,11 +10,19 @@ export default function LogApplicationFilter({ environmentName, onApplicationCha
   const [applications, setApplications] = useState<SelectionItem[]>([]);
 
   useEffect(() => {
+
+    const controller = new AbortController();
+    const signal = controller.signal;
+
     if (environmentName) {
-      findApplicationsByEnvironment(environmentName.label)
+      findApplicationsByEnvironment(environmentName.label, signal)
         .then((applications) => setApplications(applications));
     } else {
       setApplications([]);
+    }
+
+    return () => {
+      controller.abort();
     }
   }, [environmentName]);
 

@@ -16,8 +16,8 @@ export function searchEnvironmentsByName(environmentNameLike: string) {
   });
 }
 
-export function findApplicationsByEnvironment(environment: string) {
-  return fetch(`${loggilyApplicationUrl}/name?environmentName=${environment}`)
+export function findApplicationsByEnvironment(environment: string, signal: AbortSignal) {
+  return fetch(`${loggilyApplicationUrl}/name?environmentName=${environment}`, { signal })
   .then((result) => result.json())
   .then(payload => asSelectionItems(payload))
   .catch((error) => {
@@ -26,8 +26,8 @@ export function findApplicationsByEnvironment(environment: string) {
   });
 }
 
-export function findHostsByEnvironmentAndApplication(environment: string, application: string) {
-  return fetch(`${loggilyHostUrl}/name?environmentName=${environment}&applicationName=${application}`)
+export function findHostsByEnvironmentAndApplication(environment: string, application: string, signal: AbortSignal) {
+  return fetch(`${loggilyHostUrl}/name?environmentName=${environment}&applicationName=${application}`, { signal })
   .then((result) => result.json())
   .then(payload => asSelectionItems(payload))
   .catch((error) => {
