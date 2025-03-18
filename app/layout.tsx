@@ -40,10 +40,10 @@ export default function RootLayout({
       >
         <Providers>
           <div className="flex flex-col h-full">
-            <div>
+            <div className="fixed w-full">
               <DashboardHeader themeMode={themeMode} onToggle={toggleThemeMode}></DashboardHeader>
             </div>
-            <div className="grow">
+            <div className="h-full pt-10">
               {children}
             </div>
           </div>

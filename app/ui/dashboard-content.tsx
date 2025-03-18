@@ -11,7 +11,7 @@ export default function DashboardContent() {
       <div>
         <LogFilter></LogFilter>
       </div>
-      <div className="grow">
+      <div className="overflow-auto">
         <LogView></LogView>
       </div>
     </div>
