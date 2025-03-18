@@ -23,7 +23,10 @@ export interface LogFilterCriteria {
 }
 
 export interface ReadableLog {
+  id: number
+  host: string | undefined
   timestamp: string,
   level: string,
-  message: string
+  message: string,
+  scope: string
 }
