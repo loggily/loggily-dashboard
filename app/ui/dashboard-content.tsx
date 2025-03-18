@@ -11,7 +11,7 @@ export default function DashboardContent() {
       <div>
         <LogFilter></LogFilter>
       </div>
-      <div className="overflow-auto">
+      <div className="h-full overflow-auto p-2 border border-emerald-500/25 rounded-lg shadow-md">
         <LogView></LogView>
       </div>
     </div>

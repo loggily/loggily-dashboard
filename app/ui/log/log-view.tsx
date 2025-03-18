@@ -91,6 +91,7 @@ export default function LogView() {
     <div>
       <Table
         removeWrapper
+        hideHeader
         selectionMode="single"
         aria-label="logs">
         <TableHeader>
