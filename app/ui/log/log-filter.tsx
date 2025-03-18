@@ -6,7 +6,9 @@ import { Key, useState } from "react";
 import LogHostFilter from "./log-host-filter";
 import LogTraceIdFilter from "./log-trace-id-filter";
 import LogSpanIdFilter from "./log-span-id-filter";
-import { SelectionItem } from "@/app/lib/types";
+import { LogFilterCriteria, ReadableLog, SelectionItem } from "@/app/lib/types";
+import { Button } from "@heroui/button";
+import { loadLogs } from "@/app/lib/log-api";
 
 export default function LogFilter() {
 
@@ -16,6 +18,8 @@ export default function LogFilter() {
 
   const [selectedTraceId, setSelectedTraceId] = useState<string | undefined>(undefined);
   const [selectedSpanId, setSelectedSpanId] = useState<string | undefined>(undefined);
+
+  const [logs, setLogs] = useState<ReadableLog[]>([]);
 
   const onEnvironmentChange = (selectedEnvironment: SelectionItem | undefined) => {
     setSelectedEnvironment(selectedEnvironment);
@@ -35,6 +39,32 @@ export default function LogFilter() {
 
   const onSpanIdChange = (spanId: string) => {
     setSelectedSpanId(spanId);
+  }
+
+  const searchLogs = () => {
+    const criteria: LogFilterCriteria = {
+      environmentName: selectedEnvironment?.label,
+      applicationName: selectedApplication?.label,
+      hostName: selectedHost?.label,
+      traceId: selectedTraceId,
+      spanId: selectedSpanId,
+      offset: undefined,
+      limit: undefined
+    }
+
+    loadLogs(criteria).then(result => console.log(result))
+  }
+
+  const isSearchDisabled = () => {
+    if (selectedTraceId) {
+      return false
+    }
+
+    if (selectedEnvironment) {
+      return !selectedApplication
+    } else {
+      return !selectedTraceId
+    }
   }
 
   return (
@@ -57,6 +87,13 @@ export default function LogFilter() {
         <div className="w-1/3">
           <LogSpanIdFilter onSpanIdChange={onSpanIdChange}></LogSpanIdFilter>
         </div>
+      </div>
+      <div className="flex flex-row m-2 gap-2 justify-center">
+        <Button
+          variant="bordered"
+          size="sm"
+          onPress={searchLogs}
+          isDisabled={isSearchDisabled()}>Search</Button>
       </div>
     </div>
   );
