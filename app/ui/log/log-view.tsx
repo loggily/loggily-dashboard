@@ -1,8 +1,10 @@
 'use client'
 import { ReadableLog } from "@/app/lib/types";
-import { getKeyValue, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@heroui/table";
+import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@heroui/table";
+import { useCallback } from "react";
+import SingleLogView from "./single-log-view";
 
-const columns = ["host", "timestamp", "level", "scope", "message"];
+const columns = ["logs"];
 const rows: ReadableLog[] = [
   {
     id: 1,
@@ -17,7 +19,7 @@ const rows: ReadableLog[] = [
     scope: "org.springframework.web.servlet.DispatcherServlet",
     timestamp: "2021-01-01T00:00:00Z",
     level: "ERROR",
-    message: "This is an error message.",
+    message: "Retrying validate operation due to error: HTTP 500 : An internal error has occurred.",
     host: "localhost"
   },
   {
@@ -73,7 +75,7 @@ const rows: ReadableLog[] = [
     scope: "org.springframework.web.servlet.DispatcherServlet",
     timestamp: "2021-01-01T00:00:00Z",
     level: "DEBUG",
-    message: "This is a debug message.",
+    message: "Retrying validate operation due to error: HTTP 500 : An internal error has occurred. Retrying validate operation due to error: HTTP 500 : An internal error has occurred.",
     host: "localhost"
   },
   {
@@ -81,12 +83,19 @@ const rows: ReadableLog[] = [
     scope: "org.springframework.web.servlet.DispatcherServlet",
     timestamp: "2021-01-01T00:00:00Z",
     level: "TRACE",
-    message: "This is a trace message.",
+    message: "This is a debug message.",
     host: "localhost"
   }
 ]
 
 export default function LogView() {
+
+  const readableLogRenderer = useCallback((readableLog: ReadableLog) => {
+    return (
+      <SingleLogView readableLog={readableLog}></SingleLogView>
+    )
+  }, []);
+
   return (
     <div>
       <Table
@@ -100,9 +109,10 @@ export default function LogView() {
           )}
         </TableHeader>
         <TableBody items={rows} emptyContent={"No logs to display."}>
-          {(item) => (
-            <TableRow key={item.id}>
-              {(columnKey) => <TableCell>{getKeyValue(item, columnKey)}</TableCell>}
+          {(readableLog) => (
+            <TableRow key={readableLog.id}>
+              {() => <TableCell
+                className="p-1">{readableLogRenderer(readableLog)}</TableCell>}
             </TableRow>
           )}
         </TableBody>
