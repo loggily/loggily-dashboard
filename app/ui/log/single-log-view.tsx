@@ -10,7 +10,7 @@ function findLogLevelColor(logLevel: LogLevel): string {
   }
 
   if (logLevel === LogLevel.INFO) {
-    return "text-blue-500";
+    return "text-cyan-500";
   }
   if (logLevel === LogLevel.TRACE) {
     return "text-gray-400";
