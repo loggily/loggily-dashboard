@@ -1,5 +1,5 @@
 'use client'
-import { ReadableLog } from "@/app/lib/types";
+import { LogLevel, ReadableLog } from "@/app/lib/types";
 import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@heroui/table";
 import { useCallback } from "react";
 import SingleLogView from "./single-log-view";
@@ -10,7 +10,8 @@ const rows: ReadableLog[] = [
     id: 1,
     scope: "org.springframework.web.servlet.DispatcherServlet",
     timestamp: "2021-01-01T00:00:00Z",
-    level: "INFO",
+    level: LogLevel.INFO,
+    levelText: "Informational",
     message: "This is an info message.",
     host: "localhost"
   },
@@ -18,7 +19,7 @@ const rows: ReadableLog[] = [
     id: 2,
     scope: "org.springframework.web.servlet.DispatcherServlet",
     timestamp: "2021-01-01T00:00:00Z",
-    level: "ERROR",
+    level: LogLevel.ERROR,
     message: "Retrying validate operation due to error: HTTP 500 : An internal error has occurred.",
     host: "localhost"
   },
@@ -26,7 +27,7 @@ const rows: ReadableLog[] = [
     id: 3,
     scope: "org.springframework.web.servlet.DispatcherServlet",
     timestamp: "2021-01-01T00:00:00Z",
-    level: "WARN",
+    level: LogLevel.WARN,
     message: "This is a warning message.",
     host: "localhost"
   },
@@ -34,7 +35,7 @@ const rows: ReadableLog[] = [
     id: 4,
     scope: "org.springframework.web.servlet.DispatcherServlet",
     timestamp: "2021-01-01T00:00:00Z",
-    level: "DEBUG",
+    level: LogLevel.DEBUG,
     message: "This is a debug message.",
     host: "localhost"
   },
@@ -42,7 +43,7 @@ const rows: ReadableLog[] = [
     id: 5,
     scope: "org.springframework.web.servlet.DispatcherServlet",
     timestamp: "2021-01-01T00:00:00Z",
-    level: "TRACE",
+    level: LogLevel.TRACE,
     message: "This is a trace message.",
     host: "localhost"
   },
@@ -50,7 +51,7 @@ const rows: ReadableLog[] = [
     id: 6,
     scope: "org.springframework.web.servlet.DispatcherServlet",
     timestamp: "2021-01-01T00:00:00Z",
-    level: "INFO",
+    level: LogLevel.INFO,
     message: "This is an info message.",
     host: "localhost"
   },
@@ -58,7 +59,7 @@ const rows: ReadableLog[] = [
     id: 7,
     scope: "org.springframework.web.servlet.DispatcherServlet",
     timestamp: "2021-01-01T00:00:00Z",
-    level: "ERROR",
+    level: LogLevel.ERROR,
     message: "This is an error message.",
     host: "localhost"
   },
@@ -66,7 +67,7 @@ const rows: ReadableLog[] = [
     id: 8,
     scope: "org.springframework.web.servlet.DispatcherServlet",
     timestamp: "2021-01-01T00:00:00Z",
-    level: "WARN",
+    level: LogLevel.WARN,
     message: "This is a warning message.",
     host: "localhost"
   },
@@ -74,7 +75,7 @@ const rows: ReadableLog[] = [
     id: 9,
     scope: "org.springframework.web.servlet.DispatcherServlet",
     timestamp: "2021-01-01T00:00:00Z",
-    level: "DEBUG",
+    level: LogLevel.DEBUG,
     message: "Retrying validate operation due to error: HTTP 500 : An internal error has occurred. Retrying validate operation due to error: HTTP 500 : An internal error has occurred.",
     host: "localhost"
   },
@@ -82,7 +83,7 @@ const rows: ReadableLog[] = [
     id: 10,
     scope: "org.springframework.web.servlet.DispatcherServlet",
     timestamp: "2021-01-01T00:00:00Z",
-    level: "TRACE",
+    level: LogLevel.TRACE,
     message: "This is a debug message.",
     host: "localhost"
   }

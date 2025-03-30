@@ -24,9 +24,19 @@ export interface LogFilterCriteria {
 
 export interface ReadableLog {
   id: number
-  host: string | undefined
+  host?: string
   timestamp: string,
-  level: string,
+  level: LogLevel,
+  levelText?: string,
   message: string,
-  scope: string
+  scope: string,
+}
+
+export enum LogLevel {
+  TRACE = "TRACE",
+  DEBUG = "DEBUG",
+  INFO = "INFO",
+  WARN = "WARN",
+  ERROR = "ERROR",
+  FATAL = "FATAL"
 }
